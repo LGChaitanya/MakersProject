@@ -1,0 +1,100 @@
+package net.makersharks.springboot.entity;
+import java.util.List;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "suppliers")
+public class Supplier {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long supplierId;
+
+    private String companyName;
+    private String website;
+    private String location;
+
+    @Enumerated(EnumType.STRING)
+    private NatureOfBusiness natureOfBusiness;
+
+    @ElementCollection
+    @CollectionTable(name = "supplier_manufacturing_processes", joinColumns = @JoinColumn(name = "supplier_id"))
+    @Column(name = "manufacturing_process")
+    @Enumerated(EnumType.STRING)
+
+    private List<ManufacturingProcess> manufacturingProcesses;
+
+    // Default constructor
+    public Supplier() {
+    }
+
+    // Parameterized constructor
+    public Supplier(String companyName, String website, String location, NatureOfBusiness natureOfBusiness, List<ManufacturingProcess> manufacturingProcesses) {
+        this.companyName = companyName;
+        this.website = website;
+        this.location = location;
+        this.natureOfBusiness = natureOfBusiness;
+        this.manufacturingProcesses = manufacturingProcesses;
+    }
+
+    // Getters and Setters
+    public Long getSupplierId() {
+        return supplierId;
+    }
+
+    public void setSupplierId(Long supplierId) {
+        this.supplierId = supplierId;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public NatureOfBusiness getNatureOfBusiness() {
+        return natureOfBusiness;
+    }
+
+    public void setNatureOfBusiness(NatureOfBusiness natureOfBusiness) {
+        this.natureOfBusiness = natureOfBusiness;
+    }
+
+    public List<ManufacturingProcess> getManufacturingProcesses() {
+        return manufacturingProcesses;
+    }
+
+    public void setManufacturingProcesses(List<ManufacturingProcess> manufacturingProcesses) {
+        this.manufacturingProcesses = manufacturingProcesses;
+    }
+
+    @Override
+    public String toString() {
+        return "Supplier{" +
+                "supplierId=" + supplierId +
+                ", companyName='" + companyName + '\'' +
+                ", website='" + website + '\'' +
+                ", location='" + location + '\'' +
+                ", natureOfBusiness=" + natureOfBusiness +
+                ", manufacturingProcesses=" + manufacturingProcesses +
+                '}';
+    }
+}
